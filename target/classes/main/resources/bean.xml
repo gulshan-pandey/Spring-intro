@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    <bean id="petrol" class="org.example.PetrolEngine" autowire-candidate="true"></bean>
+
+    <bean id ="diesel" class = "org.example.DieselEngine" autowire-candidate="false"></bean>
+
+    <bean id ="car" class = "org.example.Car" init-method="start" destroy-method="destroy" >                    <!-- prototype is used for creating multiple objects(not singleton one)-->
+        <property name="engine" ref="petrol"/>               <!--this will cal the setter DI, these are the IOC syntax -->
+        <constructor-arg name="engine" ref="diesel"/>           <!--  this is a constructor dependency injection-->
+
+<!--    whenever the setter injection and the constructor injection called simultaneoulty,them setter injection overwrite constructor injection... that means setter injection is more powerfill than CI-->
+
+    </bean>
+
+
+<!--    Autowire byName and Autowire byType-->
+<!--    <bean id ="engine" class = "org.example.DieselEngine"></bean>                     &lt;!&ndash;  in byName autowiring, reference name in object should be same as bean id &ndash;&gt;-->
+<!--    <bean id ="CarObj" class = "org.example.Car" autowire="byName"></bean>-->
+<!--    <bean id="carObj" class="org.example.Car" autowire="byType"></bean>                 &lt;!&ndash; byType injects the object based on the type(engine) which is defined above, and throws exception if multiple objects are found of that same type, but we can decide which type to inject(by setting autowire-candidate="true") &ndash;&gt;-->
+
+
+<!--    Autowire Constructor-->
+<!--    <bean id ="car" class = "org.example.Car" autowire="constructor"></bean>            &lt;!&ndash; constructor injection &ndash;&gt;-->
+
+<!--    Autowire no-->
+<!--    <bean id ="car" class = "org.example.Car" autowire="no"></bean>-->
+
+
+
+</beans>
